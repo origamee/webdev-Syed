@@ -20,7 +20,11 @@ var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes      = require("./routes/index");  //index and auth routes combined
 
-mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
+// For local DB
+//mongoose.connect("mongodb://localhost/yelp_camp", { useNewUrlParser: true });
+// For Heroku
+mongoose.connect("mongodb+srv://ssm:abcd@cluster0-3abci.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));  //Definition to include the CSS directory, __dirname is the current working directory, and is a precautionary method
                                                  //The actuall CSS file i.e. main.css gets included the headers.ejs template
