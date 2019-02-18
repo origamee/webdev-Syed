@@ -1,0 +1,40 @@
+<!--Since in version4, the partials folder is outside the campgrounds and comments folder, so we go back on folder by using ../-->
+<% include ../partials/header %> 
+<!--Header is very similar to a div-->
+    <div class="container"> .  <!--This will add some spacing for us and make it look cleaner -->
+        <header class="jumbotron">
+            <!--So the spacing in the jumbotron text remains when we resize the window-->
+            <div class="container">
+                <h1>Welcome to YelpCamp</h1>
+                <p>View our hand-picked campgrounds from all over the world</p>
+                <!--So the button with the link is on a separate line-->
+                <p>
+                    <a class="btn btn-primary btn-lg" href="/campgrounds/new">Add New Campground</a>
+                </p>
+            </div>
+        </header>
+        
+        <!--Putting each item in a separate row and forming a grid-->
+        <!--Inside each row, we want to make a div that has a column class and a column width using the BS grid-->
+        <!--Center the text inside the thumbnails-->
+        <!--Flex wrap helps with styling the thumbnails inside the grid system-->
+        <div class="row text-center" style="display:flex;flex-wrap:wrap;"> 
+            <% data.forEach(function(value) { %>
+                <div class="col-md-3 col-sm-6">    <!-- decides what size the image will be when we shrink the window -->
+                    <div class="thumbnail">
+                        <!--EJS tags are inside the quotes-->
+                        <img src="<%=value.image%>"> 
+                        <div class="caption">
+                            <h4><%= value.name %></h4>
+                        </div>
+                        <p>
+                            <!--id field gets pulled from the DB, you can inspect the new button created and findout-->
+                            <a href="/campgrounds/<%= value._id %>" class="btn btn-primary">More Info</a>
+                        </p>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+<% include ../partials/footer %>

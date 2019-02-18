@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!--main.css contains some styling for the show.ejs template-->
+        <link rel="stylesheet" href="/stylesheets/main.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">YelpCamp</a>
+                </div>
+                <!--Now we need to add other items to the navbar, outside the navbar-header-->
+                <div class="collapse navbar-collapse">   <!--the collapse class hides the login, signup and logout when we shrink the window, but does NOT show the HAMBURGER menu -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!--Introducing sign-in logic, if user is logged in i.e. if currentUser variable is empty--> 
+                        <!--No = signs in these EJS tags-->
+                        <% if (!currentUser) { %>
+                        <!--In order for us to decide which link shows up if a user is signed in or not, we have to introduce some EJS logic-->
+                        <!--For this we need to pass a variable from app.js into here, which is a user object, and will have the info on user-login-->
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Sign Up</a></li>
+                        <% } else { %>
+                            <!--We need to style the "signed in as" - as it shows up ont he nav bar, use anchor tag with no href-->
+                            <li><a href="#">Signed In As <%= currentUser.username %></a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+                
+            </div>
+        </nav>
+        
+        <!--This comes from BS, the green and red flash messages-->
+        <div class="container">
+            <!--Just so error is not undefined or empty..because if ([]) will always be truthy. Typically will happen if error and success variables weren't defined in app.js-->
+            <!--These two if conditions will also help take care of two bars appearing all the time-->
+            <% if (error && error.length > 0) { %>
+                <div class="alert alert-danger" role="alert">
+                    <!--dont forget the "=" sign please-->
+                    <%= error %>
+                </div>
+            <% } %>
+            <% if (success && success.length > 0) { %>
+                <div class="alert alert-success" role="alert">
+                    <!--dont forget the "=" sign please-->
+                    <%= success %>
+                </div>
+            <% } %>
+        </div>
+
+
+
+
+        

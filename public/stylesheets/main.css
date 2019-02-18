@@ -1,0 +1,20 @@
+/*select all image tags inside the BS thumbnail class*/
+
+.thumbnail img {
+    /*This enables the images to take 100% of the thumbnail, but there still is some space between the image and the boundary*/
+    width: 100%;
+}
+
+/*This takes care of the space between the thumbnail and the image, both on the show.ejs and campgrounds.ejs templates*/
+.thumbnail {
+    padding: 0;
+}
+
+/*only the caption-full class inside the thumbnail, for padding between the comment and the thumbnail boundary*/
+.thumbnail .caption-full {
+    padding: 9px;
+}
+
+#delete-form {
+    display: inline;
+}

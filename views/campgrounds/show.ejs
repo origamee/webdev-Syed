@@ -1,0 +1,64 @@
+<% include ../partials/header %>
+<!--Add a container around the entire output-->
+<div class="container">
+    <div class="row">
+        <!--In the grid, we will reserve 3 units to the side bar and give 9 units to everything else-->
+        <div class="col-md-3">
+            <p class="lead">YelpCamp</p>
+            <div class="list-group">
+                <!--active makes it look like it's selected-->
+                <li class="list-group-item active">Info 1</li>
+                <li class="list-group-item">Info 2</li>
+                <li class="list-group-item">Info 3</li>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= valueInshowTemplate.image %>">
+                <div class="caption-full">
+                    <!--put the price all the way to the right-->
+                    <h4 class="pull-right">$<%= valueInshowTemplate.price %>/night </h4>
+                    <!--If you don't specify pull-right, it automatically defaults to pull-left-->
+                    <h4><%= valueInshowTemplate.name %></h4>
+                    <p><%= valueInshowTemplate.description %></p>
+                    <p>
+                        <em>Submitted By: <%= valueInshowTemplate.author.username %></em>
+                    </p>
+                    <!--don't show edit and delete buttons for users who don't own the campground-->
+                    <!--we don't have access to req.user._id in this template-->
+                    <!--VERY IMPORATNT ******************************-->
+                    <!--You have access to res.locals.currentUser though, we defined that in the app.js-->
+                    <!--First check whether there's at least someone logged in, if not, the currentUser variable will be empty and there will be an error-->
+                    <% if (currentUser && valueInshowTemplate.author.id.equals(currentUser._id)) { %>
+                        <a class="btn btn-xs btn-warning" href="/campgrounds/<%= valueInshowTemplate._id %>/edit">Edit</a>
+                        <!--We can give the form a style="display-inline" here but that's not a good idea, so we give it an ID and handle it in the CSS-->
+                        <form id="delete-form" action="/campgrounds/<%= valueInshowTemplate._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-xs btn-danger">Delete</button>
+                        </form>
+                    <% }%>
+                </div>
+            </div>
+            <!--Adding the comments section inside the col-md-9 grid to have it appear right beneath the image-->
+            <div class="well">
+                <div class="text-right">
+                    <a class="btn btn-success" href="/campgrounds/<%= valueInshowTemplate._id %>/comments/new">Add New Comment</a>
+                </div>
+                <!--Horizontal Rule for spacing between the button and text-->
+                <hr> 
+                <!--loop through all comments for each Campground-->
+                    <% valueInshowTemplate.comments.forEach(function(commentinside) { %>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong><%= commentinside.author.username %></strong>
+                                <span class="pull-right">10 days ago</span>
+                                <p>
+                                    <%= commentinside.text %>
+                                </p>
+                            </div>
+                        </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>

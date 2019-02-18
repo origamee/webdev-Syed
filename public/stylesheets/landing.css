@@ -1,0 +1,86 @@
+body {
+    background-color: #000;
+}
+
+#landing-header {
+    z-index: 1; /*a regular web-site can be viewed in 3D left and right, forward and backward. z-index has to be used with position:relative, not static, read up*/ 
+    position: relative;
+    text-align: center;
+    padding-top: 40vh; /* vh=view height */
+}
+
+#landing-header h1 {
+    color: #fff;
+}
+
+.slideshow { 
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0; /*this will make sure that the background images are behind the other content */
+  list-style: none; /*doesn't show any bullets or anything with li's */
+  margin: 0;
+  padding: 0;
+}
+
+/*This styles individual list items*/
+.slideshow li { 
+  width: 100%;
+  height: 100%;
+  position: absolute; /*this will help for the images to cover the full screen */
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat; /*images don't repeat vertically or horizontally */
+  opacity: 0; /*we want our images to start faded out*/
+  z-index: 0; /*background images be placed behind the text and the button */
+  animation: imageAnimation 50s linear infinite;  /*linear means th eanimation is the same speed from beginning to end. Infinite means the animation never ends*/
+}
+
+/*5s between each animation*/
+.slideshow li:nth-child(1) { 
+  background-image: url(http://i.imgur.com/K3mPv14.jpg) 
+}
+.slideshow li:nth-child(2) { 
+  background-image: url(http://i.imgur.com/SBEmFpv.jpg);
+  animation-delay: 5s; 
+}
+.slideshow li:nth-child(3) { 
+  background-image: url(http://i.imgur.com/emvhOnb.jpg);
+  animation-delay: 10s; 
+}
+.slideshow li:nth-child(4) { 
+  background-image: url(http://i.imgur.com/2LSMCmJ.jpg);
+  animation-delay: 15s; 
+}
+.slideshow li:nth-child(5) { 
+  background-image: url(http://i.imgur.com/TVGe0Ef.jpg);
+  animation-delay: 20s; 
+}
+
+/*0-100% but we're only concerned with 30%*/
+/*study cross-fade affect*/
+@keyframes imageAnimation { 
+  0% { 
+    opacity: 0; 
+    animation-timing-function: ease-in;
+  }
+  10% {
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 1
+  }
+  30% {
+    opacity: 0
+  }
+}
+
+/* Older browser support - class added by modernizr */
+.no-cssanimations .slideshow li {
+	opacity: 1;
+}
